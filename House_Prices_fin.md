@@ -16,8 +16,8 @@
     library(reshape)
     library(DataExplorer)
 
-1. Introduction
----------------
+1 Introduction
+--------------
 
 -   This notebook is a solution of the "House Prices: Advanced
     Regression Techniques" competition from Kaggle.com
@@ -30,8 +30,8 @@
 -   The final model scored a RMSLE (root mean squared logarithmic error)
     of 0.11871 which was in 10 % of the leaderboard at the time.
 
-2. Reading data
----------------
+2 Reading data
+--------------
 
 -   Reading the data.
 -   Creating the target column for the test set.
@@ -47,8 +47,8 @@
 
     full = merge(train, test, all = T)
 
-2. Data exploration
--------------------
+2 Data exploration
+------------------
 
 -   Getting an initial overview.
 
@@ -297,7 +297,7 @@
 
 ![](House_Prices_fin_files/figure-markdown_strict/unnamed-chunk-9-1.png)
 
-3.Data cleaning and missing value imputation
+3 Data cleaning and missing value imputation
 --------------------------------------------
 
 **MSSubClass**
@@ -703,13 +703,13 @@
     ## n=2760 (159 observations deleted due to missingness)
     ## 
     ##         CP nsplit rel error  xerror     xstd
-    ## 1 0.616991      0   1.00000 1.00030 0.024236
-    ## 2 0.089403      1   0.38301 0.38320 0.014396
-    ## 3 0.044662      2   0.29361 0.29708 0.013383
-    ## 4 0.020109      3   0.24894 0.26132 0.012442
-    ## 5 0.018097      4   0.22883 0.23783 0.012602
-    ## 6 0.012507      5   0.21074 0.22310 0.012627
-    ## 7 0.010000      6   0.19823 0.21552 0.013298
+    ## 1 0.616991      0   1.00000 1.00052 0.024234
+    ## 2 0.089403      1   0.38301 0.38395 0.014428
+    ## 3 0.044662      2   0.29361 0.29958 0.013660
+    ## 4 0.020109      3   0.24894 0.26430 0.012869
+    ## 5 0.018097      4   0.22883 0.24287 0.013234
+    ## 6 0.012507      5   0.21074 0.22514 0.013183
+    ## 7 0.010000      6   0.19823 0.21632 0.013209
 
     fancyRpartPlot(model = model, sub = "Imputemodel GarageYrBlt")
 
