@@ -706,13 +706,13 @@
     ## n=2760 (159 observations deleted due to missingness)
     ## 
     ##         CP nsplit rel error  xerror     xstd
-    ## 1 0.616991      0   1.00000 1.00039 0.024239
-    ## 2 0.089403      1   0.38301 0.38363 0.014416
-    ## 3 0.044662      2   0.29361 0.29873 0.013519
-    ## 4 0.020109      3   0.24894 0.26353 0.012596
-    ## 5 0.018097      4   0.22883 0.24424 0.012756
-    ## 6 0.012507      5   0.21074 0.22642 0.012894
-    ## 7 0.010000      6   0.19823 0.21123 0.013091
+    ## 1 0.616991      0   1.00000 1.00096 0.024245
+    ## 2 0.089403      1   0.38301 0.38362 0.014424
+    ## 3 0.044662      2   0.29361 0.29873 0.013504
+    ## 4 0.020109      3   0.24894 0.26648 0.012956
+    ## 5 0.018097      4   0.22883 0.24563 0.013372
+    ## 6 0.012507      5   0.21074 0.22980 0.013433
+    ## 7 0.010000      6   0.19823 0.22039 0.013710
 
     fancyRpartPlot(model = model, sub = "Imputemodel GarageYrBlt")
 
@@ -989,168 +989,10 @@ Outliers are critical for most learners. Let´s take a closer look.
 <!-- -->
 
     out_filterd = out %>% filter(p > quantile(p, 0.99))
-    out_filterd
 
-    ##      Id MSSubClass MSZoning LotFrontage LotArea Street Alley LotShape LandContour LotConfig
-    ## 1    40         90       RL          65    6040   Pave    No      Reg         Lvl    Inside
-    ## 2    53         90       RM         110    8472   Grvl    No      IR2         Bnk    Corner
-    ## 3    89         50  C (all)         105    8470   Pave    No      IR1         Lvl    Corner
-    ## 4   114         20       RL          96   21000   Pave    No      Reg         Bnk    Corner
-    ## 5   186         75       RM          90   22950   Pave    No      IR2         Lvl    Inside
-    ## 6   198         75       RL         174   25419   Pave    No      Reg         Lvl    Corner
-    ## 7   376         30       RL          63   10020   Pave    No      IR1         Low    Inside
-    ## 8   524         60       RL         130   40094   Pave    No      IR1         Bnk    Inside
-    ## 9   534         20       RL          50    5000   Pave    No      Reg         Low    Inside
-    ## 10  637         30       RM          51    6120   Pave    No      Reg         Lvl    Inside
-    ## 11  706        190       RM          70    5600   Pave    No      Reg         Lvl    Inside
-    ## 12  748         70       RM          65   11700   Pave     2      IR1         Lvl    Corner
-    ## 13  770         60       RL          47   53504   Pave    No      IR2         HLS   CulDSac
-    ## 14 1299         60       RL         313   63887   Pave    No      IR3         Bnk    Corner
-    ## 15 1338         30       RM         153    4118   Pave     1      IR1         Bnk    Corner
-    ##    LandSlope Neighborhood Condition1 Condition2 BldgType HouseStyle OverallQual OverallCond
-    ## 1        Gtl      Edwards       Norm       Norm   Duplex     1Story           4           5
-    ## 2        Mod       IDOTRR       RRNn       Norm   Duplex     1Story           5           5
-    ## 3        Gtl       IDOTRR      Feedr      Feedr     1Fam     1.5Fin           3           2
-    ## 4        Gtl      Crawfor       Norm       Norm     1Fam     1Story           6           5
-    ## 5        Gtl      OldTown     Artery       Norm     1Fam     2.5Fin          10           9
-    ## 6        Gtl        NAmes     Artery       Norm     1Fam     2Story           8           4
-    ## 7        Sev      Edwards       Norm       Norm     1Fam     1Story           1           1
-    ## 8        Gtl      Edwards       PosN       PosN     1Fam     2Story          10           5
-    ## 9        Mod      BrkSide       Norm       Norm     1Fam     1Story           1           3
-    ## 10       Gtl      BrkSide       Norm       Norm     1Fam     1Story           2           3
-    ## 11       Gtl       IDOTRR       Norm       Norm   2fmCon     2Story           4           5
-    ## 12       Gtl      OldTown       Norm       Norm     1Fam     2Story           7           7
-    ## 13       Mod      StoneBr       Norm       Norm     1Fam     2Story           8           5
-    ## 14       Gtl      Edwards      Feedr       Norm     1Fam     2Story          10           5
-    ## 15       Mod      OldTown      Feedr       Norm     1Fam     1Story           4           4
-    ##    YearBuilt YearRemodAdd RoofStyle RoofMatl Exterior1st Exterior2nd MasVnrType MasVnrArea
-    ## 1       1955         1955     Gable  CompShg     AsbShng     Plywood       None          0
-    ## 2       1963         1963     Gable  CompShg     Wd Sdng     Wd Sdng       None          0
-    ## 3       1915         1982       Hip  CompShg     Plywood     Plywood       None          0
-    ## 4       1953         1953       Hip  CompShg     Wd Sdng     Wd Sdng    BrkFace        184
-    ## 5       1892         1993     Gable  WdShngl     Wd Sdng     Wd Sdng       None          0
-    ## 6       1918         1990     Gable  CompShg      Stucco      Stucco       None          0
-    ## 7       1922         1950     Gable  CompShg     Wd Sdng     Wd Sdng       None          0
-    ## 8       2007         2008       Hip  CompShg     CemntBd     CmentBd      Stone        762
-    ## 9       1946         1950     Gable  CompShg     VinylSd     VinylSd       None          0
-    ## 10      1936         1950     Gable  CompShg     AsbShng     AsbShng       None          0
-    ## 11      1930         1950       Hip  CompShg     VinylSd     Wd Shng       None          0
-    ## 12      1880         2003   Mansard  CompShg      Stucco      Stucco       None          0
-    ## 13      2003         2003       Hip  CompShg     CemntBd     Wd Shng    BrkFace        603
-    ## 14      2008         2008       Hip  ClyTile      Stucco      Stucco      Stone        796
-    ## 15      1941         1950     Gable  CompShg     Wd Sdng     Wd Sdng       None          0
-    ##    ExterQual ExterCond Foundation BsmtQual BsmtCond BsmtExposure BsmtFinType1 BsmtFinSF1
-    ## 1          4        TA      PConc       No       No         None           No          0
-    ## 2          2        TA     CBlock        3        4            2            4        104
-    ## 3          2        Fa     CBlock        4        1            4            6          0
-    ## 4          4        Gd     CBlock        3        4            3            1         35
-    ## 5          3        Gd     BrkTil        4        4            3            6          0
-    ## 6          3        Gd      PConc        4        4            4            3       1036
-    ## 7          2        Fa     BrkTil        2        3            2            2        350
-    ## 8          1        TA      PConc        1        4            2            3       2260
-    ## 9          2        Fa       Slab       No       No         None           No          0
-    ## 10         2        Fa     BrkTil        4        1            4            6          0
-    ## 11         2        Fa       Slab       No       No         None           No          0
-    ## 12         3        TA      Stone        4        1            4            6          0
-    ## 13         1        TA      PConc        3        4            2            1       1416
-    ## 14         1        TA      PConc        1        4            2            3       5644
-    ## 15         4        TA     CBlock        4        4            4            6          0
-    ##    BsmtFinType2 BsmtFinSF2 BsmtUnfSF TotalBsmtSF Heating HeatingQC CentralAir Electrical X1stFlrSF
-    ## 1            No          0         0           0    GasA        TA          N      FuseP      1152
-    ## 2             3        712         0         816    GasA        TA          N      SBrkr       816
-    ## 3             6          0      1013        1013    GasA        TA          N      SBrkr      1013
-    ## 4             5        869       905        1809    GasA        TA          Y      SBrkr      2259
-    ## 5             6          0      1107        1107    GasA        Ex          Y      SBrkr      1518
-    ## 6             4        184       140        1360    GasA        Gd          Y      SBrkr      1360
-    ## 7             6          0       333         683    GasA        Gd          N      FuseA       904
-    ## 8             6          0       878        3138    GasA        Ex          Y      SBrkr      3138
-    ## 9            No          0         0           0    GasA        Fa          N      FuseF       334
-    ## 10            6          0       264         264    Grav        Fa          N      FuseA       800
-    ## 11           No          0         0           0    GasA        Fa          N      SBrkr       372
-    ## 12            6          0      1240        1240    GasW        TA          N      SBrkr      1320
-    ## 13            6          0       234        1650    GasA        Ex          Y      SBrkr      1690
-    ## 14            6          0       466        6110    GasA        Ex          Y      SBrkr      4692
-    ## 15            6          0       693         693    Grav        Fa          N      FuseA       693
-    ##    X2ndFlrSF LowQualFinSF GrLivArea BsmtFullBath BsmtHalfBath FullBath HalfBath BedroomAbvGr
-    ## 1          0            0      1152            0            0        2        0            2
-    ## 2          0            0       816            1            0        1        0            2
-    ## 3          0          513      1526            0            0        1        0            2
-    ## 4          0            0      2259            1            0        2        0            3
-    ## 5       1518          572      3608            0            0        2        1            4
-    ## 6       1360          392      3112            1            1        2        0            4
-    ## 7          0            0       904            1            0        0        1            1
-    ## 8       1538            0      4676            1            0        3        1            3
-    ## 9          0            0       334            0            0        1        0            1
-    ## 10         0            0       800            0            0        1        0            1
-    ## 11       720            0      1092            0            0        2        0            3
-    ## 12      1320            0      2640            0            0        1        1            4
-    ## 13      1589            0      3279            1            0        3        1            4
-    ## 14       950            0      5642            2            0        2        1            3
-    ## 15         0            0       693            0            0        1        0            2
-    ##    KitchenAbvGr KitchenQual TotRmsAbvGrd Functional Fireplaces FireplaceQu GarageType GarageYrBlt
-    ## 1             2           2            6        Typ          0          No         No        1952
-    ## 2             1           4            5        Typ          0          No          5        1965
-    ## 3             1           2            6        Typ          0          No         No        1937
-    ## 4             1           3            7        Typ          2           3          3        1952
-    ## 5             1           1           12        Typ          2           5          6        1967
-    ## 6             1           3            8        Typ          1           1          6        1967
-    ## 7             1           2            4       Maj1          0          No         No        1937
-    ## 8             1           1           11        Typ          1           3          4        2004
-    ## 9             1           2            2        Typ          0          No         No        1952
-    ## 10            1           2            4       Maj1          1           4         No        1937
-    ## 11            2           2            7        Mod          0          No         No        1937
-    ## 12            1           3            8        Typ          1           3          6        1967
-    ## 13            1           1           12        Mod          1           3          4        2004
-    ## 14            1           1           12        Typ          3           3          2        2004
-    ## 15            1           2            4        Typ          0          No         No        1952
-    ##    GarageFinish GarageCars GarageArea GarageQual GarageCond PavedDrive WoodDeckSF OpenPorchSF
-    ## 1            No          0          0          6          6          N          0           0
-    ## 2             3          2        516          5          5          Y        106           0
-    ## 3            No          0          0          6          6          N          0           0
-    ## 4             3          2        450          5          5          Y        166         120
-    ## 5             3          3        840          1          5          Y          0         260
-    ## 6             3          2        795          5          5          Y          0          16
-    ## 7            No          0          0          6          6          Y          0           0
-    ## 8             1          3        884          5          5          Y        208         406
-    ## 9            No          0          0          6          6          N          0           0
-    ## 10           No          0          0          6          6          N          0           0
-    ## 11           No          0          0          6          6          N          0           0
-    ## 12            3          4        864          5          5          N        181           0
-    ## 13            1          3        841          5          5          Y        503          36
-    ## 14            1          2       1418          5          5          Y        214         292
-    ## 15           No          0          0          6          6          N          0          20
-    ##    EnclosedPorch X3SsnPorch ScreenPorch PoolArea PoolQC Fence MiscFeature MiscVal MoSold YrSold
-    ## 1              0          0           0        0     No    No        Shed       0      6   2008
-    ## 2              0          0           0        0     No    No        Shed       0      5   2010
-    ## 3            156          0           0        0     No     3        Shed       0     10   2009
-    ## 4            192          0           0        0     No     3        Shed       0     10   2007
-    ## 5              0          0         410        0     No     1        Shed       0      6   2006
-    ## 6            552          0           0      512      1     1        Shed       0      3   2006
-    ## 7              0          0           0        0     No    No        Shed       0      3   2009
-    ## 8              0          0           0        0     No    No        Shed       0     10   2007
-    ## 9              0          0           0        0     No    No        Shed       0      1   2007
-    ## 10             0          0           0        0     No    No        Shed       0      1   2009
-    ## 11             0          0           0        0     No    No        Othr    3500      7   2010
-    ## 12           386          0           0        0     No    No        Shed       0      5   2009
-    ## 13             0          0         210        0     No    No        Shed       0      6   2010
-    ## 14             0          0           0      480      3    No        Shed       0      1   2008
-    ## 15             0          0           0        0     No    No        Shed       0      3   2006
-    ##    SaleType SaleCondition SalePrice oual_cond  rooms_area YB_YRM  Low_Fin         p
-    ## 1        WD       AdjLand  11.31447        20 0.006944444     53    0.000 0.5568203
-    ## 2        WD        Normal  11.60824        25 0.007352941     47  816.000 0.5563142
-    ## 3     ConLD       Abnorml  11.35041         6 0.004587156     27 1013.336 0.5604661
-    ## 4       COD       Abnorml  12.28765        30 0.003984064     54 1809.000 0.5704865
-    ## 5        WD        Normal  13.07107        90 0.004157428     13 1107.159 0.5765038
-    ## 6        WD       Abnorml  12.36734        32 0.003213368     16 1360.126 0.5755493
-    ## 7        WD        Normal  11.01863         1 0.005530973     59  683.000 0.5822341
-    ## 8       New       Partial  12.12676        50 0.003207870     -1 3138.000 0.5650529
-    ## 9        WD        Normal  10.57898         3 0.008982036     57    0.000 0.5702463
-    ## 10    ConLw        Normal  11.00210         6 0.006250000     59  264.000 0.5662250
-    ## 11       WD        Normal  10.91509        20 0.008241758     60    0.000 0.5859408
-    ## 12       WD        Normal  12.49117        49 0.003787879      6 1240.000 0.5712251
-    ## 13       WD        Normal  13.19561        40 0.004879536      7 1650.000 0.5597261
-    ## 14      New       Partial  11.98293        50 0.002658632      0 6110.000 0.5733095
-    ## 15       WD        Normal  10.86857        16 0.007215007     56  693.000 0.5779751
+    out_filterd$id
+
+    ## NULL
 
 6. Model Building
 -----------------
@@ -1322,11 +1164,28 @@ Outliers are critical for most learners. Let´s take a closer look.
 
 <!-- -->
 
-    bmr
+    modperf = cbind(gbm_perf = bmr$results$final_train$regr.gbm$aggr,
+                    glm_perf = bmr$results$final_train$regr.glmnet$aggr)
 
-    ##       task.id  learner.id rmse.test.rmse
-    ## 1 final_train    regr.gbm      0.1170428
-    ## 2 final_train regr.glmnet      0.1088346
+    as.data.frame(modperf) %>%
+      kable("markdown")
+
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">gbm_perf</th>
+<th align="right">glm_perf</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">rmse.test.rmse</td>
+<td align="right">0.1170428</td>
+<td align="right">0.1088346</td>
+</tr>
+</tbody>
+</table>
 
 **Learningcurve**
 
