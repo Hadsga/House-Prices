@@ -140,8 +140,7 @@
     ## $ SaleCondition <fct> Normal, Normal, Normal, Abnorml, Normal, Normal, Normal, Normal, Abnorml,...
     ## $ SalePrice     <dbl> 208500, 181500, 223500, 140000, 250000, 143000, 307000, 200000, 129900, 1...
 
-2.1 Missing values and anomaly detection
-----------------------------------------
+### 2.1 Missing values and anomaly detection
 
 -   34 of the of the 81 variables have missing values.
 -   Median and mean differ in most of the cases.
@@ -236,8 +235,7 @@
     ## 80 SaleCondition  factor    0           NA 1.771155e-01      NA         NA   12   2402     6
     ## 81     SalePrice numeric    0 9.049159e+04 1.064964e+05 34900.0 51742.7400    0 755000     0
 
-2.2 Important variables
------------------------
+### 2.2 Important variables
 
 -   Checking the most influential features.
 -   Most influential are OverallQual, Neighborhood and GrLivaera.
@@ -252,8 +250,7 @@
 
 ![](House_Prices_fin_files/figure-markdown_strict/unnamed-chunk-5-1.png)
 
-2.3 Plots
----------
+### 2.3 Plots
 
 -   Plotting the 10 most influential features.
 
@@ -706,13 +703,13 @@
     ## n=2760 (159 observations deleted due to missingness)
     ## 
     ##         CP nsplit rel error  xerror     xstd
-    ## 1 0.616991      0   1.00000 1.00096 0.024245
-    ## 2 0.089403      1   0.38301 0.38362 0.014424
-    ## 3 0.044662      2   0.29361 0.29873 0.013504
-    ## 4 0.020109      3   0.24894 0.26648 0.012956
-    ## 5 0.018097      4   0.22883 0.24563 0.013372
-    ## 6 0.012507      5   0.21074 0.22980 0.013433
-    ## 7 0.010000      6   0.19823 0.22039 0.013710
+    ## 1 0.616991      0   1.00000 1.00030 0.024236
+    ## 2 0.089403      1   0.38301 0.38320 0.014396
+    ## 3 0.044662      2   0.29361 0.29708 0.013383
+    ## 4 0.020109      3   0.24894 0.26132 0.012442
+    ## 5 0.018097      4   0.22883 0.23783 0.012602
+    ## 6 0.012507      5   0.21074 0.22310 0.012627
+    ## 7 0.010000      6   0.19823 0.21552 0.013298
 
     fancyRpartPlot(model = model, sub = "Imputemodel GarageYrBlt")
 
@@ -990,17 +987,16 @@ Outliers are critical for most learners. Let´s take a closer look.
 
     out_filterd = out %>% filter(p > quantile(p, 0.99))
 
-    out_filterd$id
+    out_filterd$Id
 
-    ## NULL
+    ##  [1]   40   53   89  114  186  198  376  524  534  637  706  748  770 1299 1338
 
 6. Model Building
 -----------------
 
 -   Overall, two models will be build.
 
-6.1 Creating the Train and Test set
------------------------------------
+### 6.1 Creating the Train and Test set
 
 -   Creating the original train and test set partition.
 -   Removing the outliers from the training set.
@@ -1018,8 +1014,7 @@ Outliers are critical for most learners. Let´s take a closer look.
     train_task = makeRegrTask(data = final_train, target = "SalePrice")
     test_task = makeRegrTask(data = final_test, target = "SalePrice")
 
-6.2 Model 1: GBM
-----------------
+### 6.2 Model 1: GBM
 
 -   First model is a gradient boosting mashine (GBM).
 
