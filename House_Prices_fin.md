@@ -703,13 +703,13 @@
     ## n=2760 (159 observations deleted due to missingness)
     ## 
     ##         CP nsplit rel error  xerror     xstd
-    ## 1 0.616991      0   1.00000 1.00099 0.024263
-    ## 2 0.089403      1   0.38301 0.38445 0.014456
-    ## 3 0.044662      2   0.29361 0.29738 0.013392
-    ## 4 0.020109      3   0.24894 0.25698 0.012358
-    ## 5 0.018097      4   0.22883 0.23492 0.012841
-    ## 6 0.012507      5   0.21074 0.22070 0.012997
-    ## 7 0.010000      6   0.19823 0.21265 0.013063
+    ## 1 0.616991      0   1.00000 1.00190 0.024271
+    ## 2 0.089403      1   0.38301 0.38385 0.014430
+    ## 3 0.044662      2   0.29361 0.29847 0.013453
+    ## 4 0.020109      3   0.24894 0.26845 0.012819
+    ## 5 0.018097      4   0.22883 0.24636 0.013373
+    ## 6 0.012507      5   0.21074 0.23149 0.013248
+    ## 7 0.010000      6   0.19823 0.22369 0.013694
 
     fancyRpartPlot(model = model, sub = "Imputemodel GarageYrBlt")
 
@@ -964,6 +964,7 @@ Outliers are critical for most learners. Let´s take a closer look.
 **Features**
 
 -   For the features an Isolation Forest will be used.
+-   Outliers are cases which are &gt; 0.5.
 
 <!-- -->
 
@@ -981,15 +982,89 @@ Outliers are critical for most learners. Let´s take a closer look.
 
 ![](House_Prices_fin_files/figure-markdown_strict/unnamed-chunk-59-1.png)
 
--   Cases which identified as outliers (99th percentile).
+-   Extreme outliers (99th percentile).
 
 <!-- -->
 
     out_filterd = out %>% filter(p > quantile(p, 0.99))
 
-    out_filterd$Id
+    out_filterd = out_filterd %>% select(Id, p)
 
-    ##  [1]   40   53   89  114  186  198  376  524  534  637  706  748  770 1299 1338
+    out_filterd %>% 
+      arrange(-p) %>%
+      as.data.frame() %>%
+      kable("markdown")
+
+<table>
+<thead>
+<tr class="header">
+<th align="right">Id</th>
+<th align="right">p</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">706</td>
+<td align="right">0.5859408</td>
+</tr>
+<tr class="even">
+<td align="right">376</td>
+<td align="right">0.5822341</td>
+</tr>
+<tr class="odd">
+<td align="right">1338</td>
+<td align="right">0.5779751</td>
+</tr>
+<tr class="even">
+<td align="right">186</td>
+<td align="right">0.5765038</td>
+</tr>
+<tr class="odd">
+<td align="right">198</td>
+<td align="right">0.5755493</td>
+</tr>
+<tr class="even">
+<td align="right">1299</td>
+<td align="right">0.5733095</td>
+</tr>
+<tr class="odd">
+<td align="right">748</td>
+<td align="right">0.5712251</td>
+</tr>
+<tr class="even">
+<td align="right">114</td>
+<td align="right">0.5704865</td>
+</tr>
+<tr class="odd">
+<td align="right">534</td>
+<td align="right">0.5702463</td>
+</tr>
+<tr class="even">
+<td align="right">637</td>
+<td align="right">0.5662250</td>
+</tr>
+<tr class="odd">
+<td align="right">524</td>
+<td align="right">0.5650529</td>
+</tr>
+<tr class="even">
+<td align="right">89</td>
+<td align="right">0.5604661</td>
+</tr>
+<tr class="odd">
+<td align="right">770</td>
+<td align="right">0.5597261</td>
+</tr>
+<tr class="even">
+<td align="right">40</td>
+<td align="right">0.5568203</td>
+</tr>
+<tr class="odd">
+<td align="right">53</td>
+<td align="right">0.5563142</td>
+</tr>
+</tbody>
+</table>
 
 6 Model Building
 ----------------
@@ -1081,8 +1156,8 @@ Outliers are critical for most learners. Let´s take a closer look.
     glm = makeLearner("regr.glmnet")
 
     ps = makeParamSet(
-      makeNumericParam("lambda", lower = 0, upper = 1),
-      makeNumericParam("alpha", lower = 0, upper = 1))
+      makeIntegerParam("s", lower = 0, upper = 1),
+      makeIntegerParam("alpha", lower = 0, upper = 1))
 
 
     mbo.ctrl = makeMBOControl()
@@ -1094,6 +1169,8 @@ Outliers are critical for most learners. Let´s take a closer look.
                              iters = 5) 
 
 
+    parallelStartSocket(cpus = detectCores())
+
     set.seed(3)
     glm_tune = tuneParams(learner = glm, 
                           par.set = ps,
@@ -1103,22 +1180,24 @@ Outliers are critical for most learners. Let´s take a closer look.
                           show.info = FALSE, 
                           measures = list(rmse, rsq))
 
+    parallelStop()
+
 -   Tuned Hyperparameters and Cross-validation score.
 
 <!-- -->
 
     glm_tune$x
 
-    ## $lambda
-    ## [1] 0.08957552
+    ## $s
+    ## [1] 0
     ## 
     ## $alpha
-    ## [1] 0.01806371
+    ## [1] 0
 
     glm_tune$y
 
     ## rmse.test.rmse 
-    ##      0.1088346
+    ##       0.112976
 
 ### 6.3 Model evaluation
 
